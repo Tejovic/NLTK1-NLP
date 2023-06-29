@@ -1,0 +1,20 @@
+# python code snippet explaining basics of NLTK
+
+import nltk # importing the nltk library into the code
+sentence = """At eight o'clock on Thursday morning
+... Arthur didn't feel very good.""" 
+tokens = nltk.word_tokenize(sentence) # tokenizing the sentence into words and storing them into variable tokens
+tokens # printing variable tokens:
+['At', 'eight', "o'clock", 'on', 'Thursday', 'morning',
+'Arthur', 'did', "n't", 'feel', 'very', 'good', '.']
+tagged = nltk.pos_tag(tokens) # creating a tuple that contains the tokens and a part of speech (pos) tag based on content
+tagged[0:6] # printing the first 6 tuples:
+[('At', 'IN'), ('eight', 'CD'), ("o'clock", 'JJ'), ('on', 'IN'),
+('Thursday', 'NNP'), ('morning', 'NN')] # IN = preposition, CD = cardinal number, JJ = adjective, NNP = proper noun, singular, NN = noun, singular or mass
+entities = nltk.chunk.ne_chunk(tagged) # using ne_chunk() function from chunk module, which performs named entity recognition (NER) on the contents of tagged (tuple containing tokens and pos) and stores it in variable entities
+entities # printing entities which gives a tree like structure, identifying and grouping entities together under specific labels
+Tree('S', [('At', 'IN'), ('eight', 'CD'), ("o'clock", 'JJ'),
+           ('on', 'IN'), ('Thursday', 'NNP'), ('morning', 'NN'), # this tree contains 'sentence' (S) label
+       Tree('PERSON', [('Arthur', 'NNP')]), # this tree contains 'person' (PERSON) label
+           ('did', 'VBD'), ("n't", 'RB'), ('feel', 'VB'),
+           ('very', 'RB'), ('good', 'JJ'), ('.', '.')])
