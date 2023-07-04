@@ -1,0 +1,34 @@
+from nltk.corpus import opinion_lexicon # importing the opinion_lexicon from the nltk.corpus module 
+from nltk.tokenize import word_tokenize # importing word_tokenize function from nltk.tokenize module
+
+def calculate_sentiment_score(text):
+    sentiment_lexicon = opinion_lexicon.words() # obtaining the lexicon words from the opinion_lexicon using the words() method 
+    tokens = word_tokenize(text.lower()) # tokenizing the input text into lower case
+    
+    sentiment_score = 0 # initializing the sentiment score as 0
+    for token in tokens: 
+        if token in sentiment_lexicon:
+            sentiment_score += opinion_lexicon.score(token) 
+            """ goes through all the tokens in the text and checks if the token is present in 
+        the sentiment lexicon. If it is, it adds the sentiment score associated with that token to the sentiment_score variable and returns
+        the calculated score.
+        """
+            
+    return sentiment_score
+
+def classify_sentiment(sentiment_score):
+    if sentiment_score > 0:
+        return 'Positive'
+    elif sentiment_score < 0: 
+        return 'Negative'
+    else:
+        return 'Neutral' # giving each token a rating based on their sentiment score 
+    
+input_text = "I absolutely loved the movie! The acting was fantastic." # sample output
+sentiment_score = calculate_sentiment_score(input_text) # storing value of sentiment score by sending sample out to the first function
+sentiment_label = classify_sentiment(sentiment_score) 
+""" storing value of sentiment label (overall sentiment) by sending sentiment score through
+the second function """
+
+print ("Sentiment Score:", sentiment_score)
+print ("Sentiment Label:", sentiment_label)
